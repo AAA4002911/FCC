@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  h1, p {
+    text-align: center;
+    font-family: sans-serif;
+    padding: 0 5%;
+  }
+  
+  h1 {
+    padding-top: 50px;
+  }
+  
+  #container {
+    margin: 1em auto;
+    width: 80%;
+    min-width: 300px;
+    max-width: 600px;
+    background-color: rgba(231, 198, 187, 0.5);
+  }
+  
+  #survey-form {
+    padding: 5%;
+  }
+  
+  label, select, textarea, input {
+    width: 95%;
+    margin: 10px;
+  }
+  
+  label, textarea {
+    padding-bottom: 50px;
+    font-size: 20px;
+  }
+  
+  input, select {
+    height: 30px;
+  }
+  
+  input[type="radio"], input[type="checkbox"] {
+    height: 15px;
+    display: inline-block;
+    width: 5%;
+  }
+  
+  label:last-of-type {
+    padding-top: 20%;
+  }
+  
+  textarea::placeholder {
+    font-size: 16px;
+  }
+  
+  #submit {
+    background-color: rgb(200, 100, 0);
+    color: white;
+    border-radius: 25px;
+  }

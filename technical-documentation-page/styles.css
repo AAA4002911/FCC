@@ -1,0 +1,43 @@
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 27%;
+  }
+  #navbar>header {
+    font-weight: bold;
+  }
+  .nav-link, #navbar>header {
+    padding: 10px;
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+  }
+  #main-doc {
+    width: 70%;
+    margin-left: 30%;
+    padding-top: 20px;
+  }
+  .main-section>header {
+    font-weight: bold;
+  }
+  code {
+    background-color: #eee;
+    padding: 10px;
+    line-height: 40px;
+  }
+  
+  @media (max-width: 768px) {
+    #navbar {
+      width: 100%;
+      bottom: 80%;
+      position: absolute;
+    }
+    #main-doc {
+      width: 100%;
+      margin-top: 50vh;
+      margin-left: auto;
+    }
+  }
