@@ -6,28 +6,27 @@ const mongoose = require("mongoose");
 // const mongo = require("mongodb");
 require('dotenv').config()
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('public'));
 
 const server = process.env.MONGO_URI;
 
-mongoose.connect(server, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('connected to Server Successfully'))
-  .catch(e => console.log(e));
+mongoose.connect(server, { useNewUrlParser: true, useUnifiedTopology: true }).then(()=>console.log('connected to Server Successfully'))
+.catch(e=>console.log(e));
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: true }
-}, { collection: "Users" })
+  username: {type: String, required: true}
+}, {collection: "Users"})
 const Users = mongoose.model("Users", userSchema);
 
 const exerciseSchema = new mongoose.Schema({
-  user_id: {type: String},
-  username: { type: String, required: true },
-  description: { type: String, required: true },
-  duration: { type: Number, required: true },
-  date: { type: Date }
-}, { collection: "Exercises" })
+  username: {type: String, required: true},
+  description: {type: String, required: true},
+  duration: {type: Number, required: true},
+  date: {type: String}
+}, {collection: "Exercises"})
 const Exercises = mongoose.model("Exercises", exerciseSchema);
 
 app.get('/', (req, res) => {
@@ -39,8 +38,8 @@ app.post("/api/users", async (req, res) => {
 
   const user_data = await Users.findOne({ username: name });
 
-  if (user_data) { return res.send(`Username ${name} already exists.`) }
-
+  if (user_data) { return res.send(`Username ${name} already exists.`)}
+      
   let data = new Users();
   data.username = name;
   data.save((err, user) => {
@@ -53,30 +52,28 @@ app.post("/api/users", async (req, res) => {
 })
 
 app.get("/api/users", async (req, res) => {
-  const ARRAY = await Users.find({}, { "__v": 0 });
+  const ARRAY = await Users.find({}, {"__v" : 0});
   res.json(ARRAY);
 })
 
 app.post("/api/users/:_id/exercises", async (req, res) => {
-  const id = req.params._id;
-  const { description, duration } = req.body;
-  let date = (req.body.date) ? new Date(req.body.date) : new Date();
+  const id = req.params._id; 
+  const { description, duration} = req.body;
+  let date = (req.body.date) ? new Date(req.body.date): new Date();
+  date = date.toDateString();
 
-  if (!id || !description || !duration) {
-    return res.status(404).json({
-      status: "404",
-      message: "Data is missing in required fields"
-    })
-  }
+  if (!id || !description || !duration) {return res.status(404).json({
+    status: "404",
+    message: "Data is missing in required fields"
+  })}
   const user_data = await Users.findOne({ _id: id });
 
-  if (!user_data) { return res.json("ID not found in database") }
-
+  if (!user_data) {return res.json("ID not found in database")}
+  
   let data = new Exercises();
-  data.user_id = id;
   data.username = user_data.username;
   data.description = description;
-  data.duration = parseInt(duration);
+  data.duration = duration;
   data.date = date;
 
   data.save((err, data) => {
@@ -85,72 +82,47 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
       "username": data.username,
       "description": data.description,
       "duration": data.duration,
-      "date": data.date.toDateString(),
+      "date": data.date,
       "_id": id,
     }
     res.json(response);
-  });
+  });  
 })
 
-let count;
-let initial;
-let final;
-
-app.get('/api/users/:_id/logs', (req, res) => {
-  //  query--> ?from=date1&to=date2&limit=number
-  if (req.query.from) {
-    initial = new Date(req.query.from)
-  } else {
-    initial = new Date('1970-01-01')
+app.get("/api/users/:_id/logs", async (req, res) => {
+  const id = req.params._id; 
+  let {from, to, limit} = req.query;
+  
+  const user_data = await Users.findOne({ _id: id});
+  const exercise_data = await Exercises.find({ username : user_data.username}, {"_id" : 0, "username" : 0, "__v": 0});
+  let temp= exercise_data;
+  
+  console.log(from, to, limit)
+  if(from){
+    const fromDate= new Date(from);
+    temp = temp.filter(exe => new Date(exe.date) > fromDate);
+  }
+  
+  if(to){
+    const toDate = new Date(to)
+    temp = temp.filter(exe => new Date(exe.date) < toDate);
+  }
+  
+  if(limit){
+    limit = new Number(limit);
+    temp = temp.slice(0,limit);
   }
 
-  if (req.query.to) {
-    final = new Date(req.query.to)
-  } else {
-    final = new Date()
+  const log = {
+    username: user_data.username,
+    count: (temp.length),
+    _id: id,
+    log: temp
   }
-
-  if (req.query.limit) {
-    count = req.query.limit
-  } else {
-    count = 1000
-  }
-
-  Users.findById(req.params._id, (err, data) => {
-    let gotUsername = data.username;
-    if (!data) {
-      console.log('user undefined.')
-    } else {
-      Exercises.find({ user_id: req.params._id, username: gotUsername, date: { $gte: initial, $lte: final } }).limit(count).exec ((err, output) => {
-        let newOutput = output.map(obj => (
-          {
-            description: obj.description,
-            duration: obj.duration,
-            date: obj.date.toDateString()
-          }
-        ))
-        res.send({ username: gotUsername, _id: req.params._id, count: newOutput.length, log: newOutput })
-      })
-
-
-    }
-  })
+  
+  res.json(log)
 })
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)
 })
-
-
-/*
-
-{ from: '1989-12-31', to: '1990-01-04' }
-1989-12-31 1990-01-04 undefined
-
-{ limit: '1' }
-undefined undefined 1
-
-{ from: '1990-01-02', to: '1990-01-04', limit: '1' }
-1990-01-02 1990-01-04 1
-
-*/
