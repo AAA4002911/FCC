@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#text {
+    margin: 0 auto;
+    color: black;
+}
+
+#text::before {
+    content: url("./assets/quote-left.png");
+    position: relative;
+    top: 0.5rem;
+    right: 0.3rem;
+}
+
+#author {
+    color: black;
+    text-align: right;
+    padding: 1rem;
+}
+
+#quote-box {
+    width: 40vw;
+    margin: 0 30vw;
+    background-color: lavenderblush;
+    padding: 2rem;
+    border-radius: 25px;
+}
+
+a {
+    text-decoration: none !important;
+    color: white;
+}
+
+button {
+    margin: 0.25rem;
+    background-color: #cd9c9c;
+}
+
+@media only screen and (max-width: 480px) {
+    #quote-box {
+        margin: 0 10vw;
+        width: 80vw;
+    }
+}
