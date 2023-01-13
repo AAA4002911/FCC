@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  .App {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(aliceblue, #cbffff, cadetblue);
+    width: 30vw;
+    margin: 10vh 35vw;
+  }
+  
+  .controls {
+    margin: 1rem 0;
+  }
+  
+  .controls > div,
+  #time-left,
+  #reset,
+  #start_stop {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0 10px;
+    font-size: 25px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #reset,
+  #start_stop {
+    font-size: medium;
+  }
+  
+  @media only screen and (max-width: 400px) {
+    .App {
+      width: 100vw;
+      margin: 10vh 0;
+    }
+  }
+  
