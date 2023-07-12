@@ -1,0 +1,43 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: #708090;
+}
+
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.chart {
+    display: flex;
+    margin: auto;
+    padding: 50px;
+    box-shadow: 0px 0px 2px #000;
+    background-color: #FFF;
+}
+
+
+path.domain {
+    width: 0px;
+    fill: none;
+    stroke: #000;
+    stroke-width: 0.5;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 10px;
+    width: 80px;
+    height: 30px;
+    margin-top: -52px;
+    margin-left: -102px;
+    font-size: 16px;
+    background: #83bbd7;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
