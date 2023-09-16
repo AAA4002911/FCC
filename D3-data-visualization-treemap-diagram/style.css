@@ -1,0 +1,32 @@
+body {
+    text-align: center;
+    font-family: sans-serif;
+}
+
+svg {
+    font: 10px sans-serif;
+    text-align: center;
+    display: block;
+    margin: auto;
+}
+
+div.tooltip {
+    position: absolute;
+    padding: 10px;
+    font: 12px Arial;
+    background: rgba(167, 228, 85, 0.95);
+    box-shadow: 1px 1px 10px rgba(128, 128, 128, 0.6);
+    border: 0px;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+#legend {
+    font-size: 15px;
+    text-align: center;
+    display: block;
+    margin: auto;
+    padding-bottom: 5px;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
