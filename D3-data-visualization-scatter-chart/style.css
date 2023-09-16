@@ -1,0 +1,27 @@
+body {
+    margin: 5rem auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+svg circle {
+    stroke: black;
+}
+
+text {
+    font-size: 0.65rem;
+}
+
+#tooltip {
+    position: absolute;
+    z-index: 1;
+    background-color: #a6cbe8;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.label {
+    font-size: 1rem;
+}
