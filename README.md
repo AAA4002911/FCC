@@ -9,3 +9,5 @@
 # Front End Development Libraries https://www.freecodecamp.org/certification/zeeshan4002911/front-end-development-libraries 
 
 # Back End Devenlopment and APIs https://www.freecodecamp.org/certification/zeeshan4002911/back-end-development-and-apis
+
+# Data Visualization https://www.freecodecamp.org/certification/zeeshan4002911/data-visualization
