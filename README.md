@@ -14,3 +14,7 @@ Back End Devenlopment and APIs https://www.freecodecamp.org/certification/zeesha
 Data Visualization https://www.freecodecamp.org/certification/zeeshan4002911/data-visualization
 
 Quality Assurance https://www.freecodecamp.org/certification/zeeshan4002911/quality-assurance-v7
+
+Legacy Information Security and Quality Assurance https://www.freecodecamp.org/certification/zeeshan4002911/information-security-and-quality-assurance
+
+Legacy Full Stack Certification https://www.freecodecamp.org/certification/zeeshan4002911/full-stack
